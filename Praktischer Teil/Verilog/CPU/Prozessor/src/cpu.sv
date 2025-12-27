@@ -100,8 +100,9 @@ initial begin
     $readmemh("rom.mi", rom_mem, 0, 2);
 end
 
+assign dout = rom_mem[addr];
 
-always @(posedge clk) begin
+/*always @(posedge clk) begin
     if(rst)begin
         dout <= 0;
     end
@@ -110,7 +111,7 @@ always @(posedge clk) begin
             dout <= rom_mem[addr];
         end
     end
-end
+end*/
 endmodule
 
 
@@ -162,6 +163,7 @@ module fsm(
         if(rst)begin
             state <= FETCH;
             pc <= 0;
+            tmp_rd <= 0;
             instr_addr <= 0;
             dmem_read <= 0;
             dmem_write <= 0;
