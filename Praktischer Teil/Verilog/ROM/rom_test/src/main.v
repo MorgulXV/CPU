@@ -3,7 +3,11 @@ module rom_module (
     output wire[7:0] data
 );
 
-reg [31:0] mem [31:0];
+reg [31:0] mem [15:0];
+
+initial begin
+    $readmemh("rom_counter.mi", mem);
+end
 
 assign data = mem[addr][7:0];
 
@@ -12,17 +16,19 @@ endmodule
 
 
 module topmodule(
-    input wire clk,
-    input wire rst,
-    output wire[7:0] out
+    input wire sys_clk,
+    input wire sys_rst,
+    output wire[7:0] out,
+    output reg clk_out
 );
 
 reg [31:0] counter;
 reg [31:0] addr_connect;
 reg [7:0] dout;
 
-always @(posedge clk) begin
-    if (!rst) begin
+always @(posedge sys_clk) begin
+    clk_out <= ~clk_out;
+    if (!sys_rst) begin
         addr_connect <= counter;
         counter   <= counter + 1;
     end else begin
@@ -31,7 +37,7 @@ always @(posedge clk) begin
     end
 end
 
-always @(posedge clk) begin
+always @(posedge sys_clk) begin
     $display(dout);
 end
 

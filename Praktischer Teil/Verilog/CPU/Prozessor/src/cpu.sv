@@ -30,6 +30,7 @@ rom_module imem (
         .clk(clk),
         .rst(rst),
         .ce(imem_ce),
+        .oce(1'b1),
         .addr(instr_addr),
         .dout(instr)
 );
@@ -62,7 +63,7 @@ endmodule
 
 module ram_module(
     input wire clk,
-    input wire we,
+    input wire[3:0] we,
     input wire ce,
     input wire rst,
     input wire[31:0] addr,
@@ -70,45 +71,46 @@ module ram_module(
     output wire[31:0] data_out
 );
 
-reg [31:0] mem [4095:0];
+reg [7:0] ram_mem [16383:0];
 
-assign data_out = (ce & !we) ? mem[addr >> 2] : 32'b0;
+assign data_out = (ce & !we) ? ram_mem[addr >> 2] : 32'b0;
 
 always @(posedge clk) begin
     if(ce & we)
-        mem[addr >> 2] <= data_in;
+        ram_mem[addr >> 2] <= data_in;
 end
 
 endmodule
 
+module rom_module(
+    input wire clk,
+    input wire ce,
+    input wire oce,
+    input wire rst,
+    input wire[31:0] addr,
+    output reg[31:0] dout
+);
 
-module rom_module (
-        input wire clk,
-        input wire rst,
-        input wire ce,
-        input wire[31:0] addr,
-        output reg [31:0] dout
-    );
+reg [31:0] rom_mem [1023:0];
 
-    reg [31:0] mem [4095:0];
 
-    /*initial begin
-        $readmemh("program.hex", mem);
-    end*/
+initial begin
+    $readmemh("rom.mi", rom_mem);
+end
 
-    wire [31:0] comb_read = mem[addr >> 2];
 
-    always @(posedge clk or posedge rst) begin
-        if(rst)
-            dout <= 0;
-        else begin
-            if(ce) begin
-                dout <= comb_read;
-            end
+always @(posedge clk) begin
+    if(rst)begin
+        dout <= 0;
+    end
+    else begin
+        if(ce)begin
+            dout <= rom_mem[addr];
         end
     end
-
+end
 endmodule
+
 
 module fsm(
     // general

@@ -1,9 +1,9 @@
--d /Users/theilmann/Jahresarbeit/rom_test/impl/gwsynthesis/rom_test.vg
+-d /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/impl/gwsynthesis/rom_test.vg
 -p GW5A-25B-MBGA121N-1
 -pn GW5A-LV25MG121NC1/I0
--cst /Users/theilmann/Jahresarbeit/rom_test/src/rom_test.cst
--cfg /Users/theilmann/Jahresarbeit/rom_test/impl/pnr/device.cfg
--sdc /Users/theilmann/Jahresarbeit/rom_test/src/rom_test.sdc
+-cst /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/src/rom_test.cst
+-cfg /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/impl/pnr/device.cfg
+-sdc /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/src/rom_test.sdc
 -bit
 -tr
 -ph

@@ -2,11 +2,7 @@
  "Device" : "GW5A-25B",
  "Files" : [
   {
-   "Path" : "/Users/theilmann/Jahresarbeit/Prozessor/src/cpu.sv",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/Users/theilmann/Jahresarbeit/Prozessor/src/gowin_prom/gowin_prom.v",
+   "Path" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv",
    "Type" : "verilog"
   }
  ],
@@ -14,7 +10,7 @@
 
  ],
  "LoopLimit" : 2000,
- "ResultFile" : "/Users/theilmann/Jahresarbeit/Prozessor/impl/temp/rtl_parser.result",
+ "ResultFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/impl/temp/rtl_parser.result",
  "Top" : "topmodule",
  "VerilogStd" : "sysv",
  "VhdlStd" : "vhdl_93"

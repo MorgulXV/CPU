@@ -1,17 +1,17 @@
 [
  {
-  "InstFile" : "/Users/theilmann/Jahresarbeit/rom_test/src/main.v",
-  "InstLine" : 14,
+  "InstFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/src/main.v",
+  "InstLine" : 18,
   "InstName" : "topmodule",
-  "ModuleFile" : "/Users/theilmann/Jahresarbeit/rom_test/src/main.v",
-  "ModuleLine" : 14,
+  "ModuleFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/src/main.v",
+  "ModuleLine" : 18,
   "ModuleName" : "topmodule",
   "SubInsts" : [
    {
-    "InstFile" : "/Users/theilmann/Jahresarbeit/rom_test/src/main.v",
-    "InstLine" : 38,
+    "InstFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/src/main.v",
+    "InstLine" : 44,
     "InstName" : "rom",
-    "ModuleFile" : "/Users/theilmann/Jahresarbeit/rom_test/src/main.v",
+    "ModuleFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/ROM/rom_test/src/main.v",
     "ModuleLine" : 1,
     "ModuleName" : "rom_module"
    }

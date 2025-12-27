@@ -1,9 +1,9 @@
 [
  {
-  "InstFile" : "/Applications/GowinIDE.app/Contents/Resources/Gowin_EDA/IDE/bin/blinkenlights/src/blinkenlights.v",
+  "InstFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/Verilog Tests/blinkenlights/src/blinkenlights.v",
   "InstLine" : 1,
   "InstName" : "led",
-  "ModuleFile" : "/Applications/GowinIDE.app/Contents/Resources/Gowin_EDA/IDE/bin/blinkenlights/src/blinkenlights.v",
+  "ModuleFile" : "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/Verilog Tests/blinkenlights/src/blinkenlights.v",
   "ModuleLine" : 1,
   "ModuleName" : "led"
  }
