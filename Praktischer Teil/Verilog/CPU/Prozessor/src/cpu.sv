@@ -10,7 +10,7 @@ wire imem_ce;
 wire dmem_ce;
 wire [31:0] pc;
 wire dmem_read;
-wire dmem_write;
+wire[3:0] dmem_write;
 wire [31:0] dmem_addr;
 wire [31:0] dmem_wdata;
 wire [31:0] instr_addr;
@@ -68,7 +68,7 @@ module ram_module(
 	input wire rst,
 	input wire[31:0] addr,
 	input wire[31:0] data_in,
-	output wire[31:0] data_out
+	output reg[31:0] data_out
 );
 
 reg [7:0] ram_mem [16383:0];
@@ -79,12 +79,10 @@ assign data_out = (ce & !we) ? ram_mem[addr >> 2] : 32'b0;
 
 always @(posedge clk) begin
 	if(ce) begin
-		if (we[0]) mem[addr >> 2][7:0]   <= data_in[7:0];
-        if (we[1]) mem[addr >> 2][15:8]  <= data_in[15:8];
-        if (we[2]) mem[addr >> 2][23:16] <= data_in[23:16];
-        if (we[3]) mem[addr >> 2][31:24] <= data_in[31:24];
-		
-		dout <= ram_mem[addr >> 2];
+		if (we[0]) ram_mem[addr >> 2][7:0]   <= data_in[7:0];
+        if (we[1]) ram_mem[addr >> 2][15:8]  <= data_in[15:8];
+        if (we[2]) ram_mem[addr >> 2][23:16] <= data_in[23:16];
+        if (we[3]) ram_mem[addr >> 2][31:24] <= data_in[31:24];
 	end
 end
 
@@ -139,7 +137,7 @@ module fsm(
 	input wire[31:0] dmem_rdata,
 	output reg dmem_ce,
 	output reg dmem_read,
-	output reg dmem_write,
+	output reg[3:0] dmem_write,
 	output reg[31:0] dmem_wdata
 );
 
@@ -178,7 +176,7 @@ module fsm(
 			tmp_rd <= 0;
 			instr_addr <= 0;
 			dmem_read <= 0;
-			dmem_write <= 0;
+			dmem_write <= 4'b0000;
 			dmem_ce <= 0;
 			imem_ce <= 0;
 			dmem_addr <= 0;
@@ -436,8 +434,6 @@ module fsm(
 					7'b0100011: begin
 						dmem_read <= 0;
 						dmem_wdata <= 32'b0;
-						dmem_write <= 1;
-						dmem_wdata <= 32'b0;
 						case (funct3)
 							3'b000: begin      //sb
 								case (tmp_mem_addr[1:0])
@@ -474,10 +470,11 @@ module fsm(
 								endcase
 							end
 							3'b010: begin	//sw
-								if (tmp_mem_addr[1:0] == 2'b00)
+								if (tmp_mem_addr[1:0] == 2'b00)begin
 									dmem_write <= 4'b1111;
 									dmem_wdata <= tmp_memw_data;
-								else
+								end
+								else 
 									dmem_wdata <= 32'b0;
 							end
 							default:
@@ -491,7 +488,7 @@ module fsm(
 				end
 				WRITEBACK: begin
 					dmem_ce <= 0;
-					dmem_write <= 0;
+					dmem_write <= 4'b0000;
 					dmem_read <= 0;
 					pc <= pc_next;
 					if(rd != 0) regfile[rd] <= tmp_rd;
