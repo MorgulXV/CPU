@@ -2,77 +2,76 @@ GowinSynthesis start
 Running parser ...
 Analyzing Verilog file '/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv'
 Compiling module 'topmodule'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":1)
-Compiling module 'ram_module'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":64)
-Extracting RAM for identifier 'ram_mem'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":74)
-Compiling module 'rom_module'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":115)
-Extracting RAM for identifier 'rom_mem'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":124)
-ERROR (EX3957) : Illegal character 'h' in hexadecimal number 3232'h#Fileformat=Hex
-ERROR (EX3957) : Illegal character '=' in hexadecimal number 3232'h#Fileformat=Hex
-ERROR (EX3957) : Illegal character 't' in hexadecimal number 3232'h#Fileformat=Hex
-ERROR (EX3957) : Illegal character 'm' in hexadecimal number 3232'h#Fileformat=Hex
-ERROR (EX3957) : Illegal character 'r' in hexadecimal number 3232'h#Fileformat=Hex
-WARN  (EX3792) : Literal value 32'h#Fileformat=Hex truncated to fit in 32 bits
-WARN  (EX2526) : Entry size 60 at /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/rom.mi:1 does not match memory width 32("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":128)
-ERROR (EX3957) : Illegal character '=' in hexadecimal number 3232'h#Addressdepth=4096
-ERROR (EX3957) : Illegal character 'h' in hexadecimal number 3232'h#Addressdepth=4096
-ERROR (EX3957) : Illegal character 't' in hexadecimal number 3232'h#Addressdepth=4096
-ERROR (EX3957) : Illegal character 'p' in hexadecimal number 3232'h#Addressdepth=4096
-WARN  (EX3792) : Literal value 32'h#Addressdepth=4096 truncated to fit in 32 bits
-ERROR (EX3957) : Illegal character '=' in hexadecimal number 3232'h#Datawidth=4
-ERROR (EX3957) : Illegal character 'h' in hexadecimal number 3232'h#Datawidth=4
-ERROR (EX3957) : Illegal character 't' in hexadecimal number 3232'h#Datawidth=4
-ERROR (EX3957) : Illegal character 'i' in hexadecimal number 3232'h#Datawidth=4
-ERROR (EX3957) : Illegal character 'w' in hexadecimal number 3232'h#Datawidth=4
-WARN  (EX3792) : Literal value 32'h#Datawidth=4 truncated to fit in 32 bits
-WARN  (EX2412) : Illegal entry at /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/rom.mi:1025 for index 1024 in range [0:1023]("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":128)
-Module 'rom_module' remains a black box due to errors in its contents("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":115)
-Compiling module 'fsm'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":145)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":386)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":482)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":547)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":549)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":551)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":555)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":557)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":559)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":561)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":565)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":567)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":569)
+Compiling module 'ram_module'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":65)
+Extracting RAM for identifier 'ram_mem'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":76)
+Compiling module 'rom_module'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":94)
+Extracting RAM for identifier 'rom_mem'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":103)
+Compiling module 'fsm'("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":125)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":385)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":446)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":573)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":575)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":577)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":581)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":583)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":585)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":587)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":589)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":591)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":593)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":594)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":600)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":602)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":603)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":607)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":595)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":599)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":601)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":609)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":616)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":618)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":611)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":613)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":615)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":619)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":620)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":622)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":624)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":625)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":631)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":626)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":628)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":629)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":633)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":635)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":636)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":642)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":644)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":646)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":648)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":650)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":652)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":653)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":651)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":657)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":659)
 WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":661)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":663)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":665)
-WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":499)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":662)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":668)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":670)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":672)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":674)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":676)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":678)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":679)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":683)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":685)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":687)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":689)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":691)
+WARN  (EX3858) : System task 'display' is ignored for synthesis("/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/cpu.sv":525)
+NOTE  (EX0101) : Current top module is "topmodule"
+[5%] Running netlist conversion ...
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/impl/gwsynthesis/Prozessor.vg" completed
+[100%] Generate report file "/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/impl/gwsynthesis/Prozessor_syn.rpt.html" completed
 GowinSynthesis finish

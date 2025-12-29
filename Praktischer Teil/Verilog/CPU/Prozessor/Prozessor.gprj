@@ -6,5 +6,6 @@
     <Device name="GW5A-25B" pn="GW5A-LV25MG121NC1/I0">gw5a25b-003</Device>
     <FileList>
         <File path="src/cpu.sv" type="file.verilog" enable="1"/>
+        <File path="src/Prozessor.cst" type="file.cst" enable="1"/>
     </FileList>
 </Project>

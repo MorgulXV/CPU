@@ -1,7 +1,8 @@
--d /Users/theilmann/Jahresarbeit/Prozessor/impl/gwsynthesis/Prozessor.vg
+-d /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/impl/gwsynthesis/Prozessor.vg
 -p GW5A-25B-MBGA121N-1
 -pn GW5A-LV25MG121NC1/I0
--cfg /Users/theilmann/Jahresarbeit/Prozessor/impl/pnr/device.cfg
+-cst /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/Prozessor.cst
+-cfg /Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/impl/pnr/device.cfg
 -bit
 -tr
 -ph

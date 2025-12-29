@@ -1,7 +1,7 @@
 module topmodule (
     input wire clk,
     input wire rst,
-    output reg[3:0] pc_trace 
+    output reg[3:0] pc_trace
 );
 
 wire [31:0] instr_connect;
@@ -10,7 +10,7 @@ wire imem_ce;
 wire dmem_ce;
 wire [31:0] pc;
 wire dmem_read;
-wire dmem_write;
+wire[3:0] dmem_write;
 wire [31:0] dmem_addr;
 wire [31:0] dmem_wdata;
 wire [31:0] instr_addr;
@@ -20,6 +20,7 @@ ram_module dmem (
         .clk(clk),
         .we(dmem_write),
         .ce(dmem_ce),
+        .re(dmem_read),
         .rst(rst),
         .addr(dmem_addr),
         .data_in(dmem_wdata),
@@ -63,24 +64,32 @@ endmodule
 
 module ram_module(
     input wire clk,
-    input wire we,
+    input wire re,
+    input wire[3:0] we,
     input wire ce,
     input wire rst,
     input wire[31:0] addr,
     input wire[31:0] data_in,
-    output wire[31:0] data_out
+    output reg[31:0] data_out
 );
 
 reg [31:0] ram_mem [4095:0];
 
-assign data_out = (ce & !we) ? mem[addr >> 2] : 32'b0;
-
 always @(posedge clk) begin
-    if(ce & we)
-        mem[addr >> 2] <= data_in;
+    if(ce) begin
+        if (we[0]) ram_mem[addr >> 2][7:0] <= data_in[7:0];
+        if (we[1]) ram_mem[addr >> 2][15:8] <= data_in[15:8];
+        if (we[2]) ram_mem[addr >> 2][23:16] <= data_in[23:16];
+        if (we[3]) ram_mem[addr >> 2][31:24] <= data_in[31:24];
+    end
+    if(re) begin
+        data_out <= ram_mem[addr >> 2];
+    end
 end
 
 endmodule
+
+
 
 module rom_module(
     input wire clk,
@@ -88,44 +97,48 @@ module rom_module(
     input wire oce,
     input wire rst,
     input wire[31:0] addr,
-    output reg[31:0] dout
+    output wire[31:0] dout
 );
 
-reg [31:0] rom_mem [1023:0];
+reg [31:0] rom_mem [4095:0];
 
-inital begin
-    $readmemh("rom.mi", mem);
+
+initial begin
+    $readmemh("rom.mi", rom_mem, 0, 25);
 end
 
-always @(posedge clk) begin
+assign dout = ce ? rom_mem[addr >> 2] : 32'b0;
+
+/*always @(posedge clk) begin
     if(rst)begin
         dout <= 0;
     end
     else begin
         if(ce)begin
-            dout <= mem[addr];
+            dout <= rom_mem[addr];
         end
     end
-end
+end*/
 endmodule
+
 
 module fsm(
     // general
     input wire clk,
     input wire rst,
     
-    // instruction memory
-    output reg imem_ce,    
+    // instruction MEMORY1
+    output reg imem_ce,
     output reg[31:0] instr_addr,
     input wire[31:0] instr,
     output reg [31:0] pc,
     
-    // data memory
+    // data MEMORY1
     output reg[31:0] dmem_addr,
     input wire[31:0] dmem_rdata,
     output reg dmem_ce,
     output reg dmem_read,
-    output reg dmem_write,
+    output reg[3:0] dmem_write,
     output reg[31:0] dmem_wdata
 );
 
@@ -133,8 +146,9 @@ module fsm(
         FETCH = 0,
         DECODE = 1,
         EXECUTE = 2,
-        MEMORY = 3,
-        WRITEBACK = 4
+        MEMORY1 = 3,
+        MEMORY2 = 4,
+        WRITEBACK = 5
     } statetype;
 
     reg [31:0] pc_next;
@@ -153,15 +167,53 @@ module fsm(
     integer i;
     integer d;
 
+    wire [31:0] x0 = regfile[0];
+    wire [31:0] x1 = regfile[1];
+    wire [31:0] x2 = regfile[2];
+    wire [31:0] x3 = regfile[3];
+    wire [31:0] x4 = regfile[4];
+    wire [31:0] x5 = regfile[5];
+    wire [31:0] x6 = regfile[6];
+    wire [31:0] x7 = regfile[7];
+    wire [31:0] x8 = regfile[8];
+    wire [31:0] x9 = regfile[9];
+    wire [31:0] x10 = regfile[10];
+    wire [31:0] x11 = regfile[11];
+    wire [31:0] x12 = regfile[12];
+    wire [31:0] x13 = regfile[13];
+    wire [31:0] x14 = regfile[14];
+    wire [31:0] x15 = regfile[15];
+    wire [31:0] x16 = regfile[16];
+    wire [31:0] x17 = regfile[17];
+    wire [31:0] x18 = regfile[18];
+    wire [31:0] x19 = regfile[19];
+    wire [31:0] x20 = regfile[20];
+    wire [31:0] x21 = regfile[21];
+    wire [31:0] x22 = regfile[22];
+    wire [31:0] x23 = regfile[23];
+    wire [31:0] x24 = regfile[24];
+    wire [31:0] x25 = regfile[25];
+    wire [31:0] x26 = regfile[26];
+    wire [31:0] x27 = regfile[27];
+    wire [31:0] x28 = regfile[28];
+    wire [31:0] x29 = regfile[29];
+    wire [31:0] x30 = regfile[30];
+    wire [31:0] x31 = regfile[31];
+
+//    reg [31:0] ir; // instruction register
+
+//    wire [31:0] opcode_wire = ir[6:0];
+    
     always @(posedge clk or posedge rst) begin
         if(rst)begin
             state <= FETCH;
             pc <= 0;
+            tmp_rd <= 0;
+            instr_addr <= 0;
             dmem_read <= 0;
-            dmem_write <= 0;
+            dmem_write <= 4'b0000;
             dmem_ce <= 0;
             imem_ce <= 0;
-            instr_addr <= 0;
             dmem_addr <= 0;
             pc_next <= 0;
             for (i = 0; i < 32; i = i + 1)
@@ -170,13 +222,13 @@ module fsm(
         else begin
             case (state)
                 FETCH: begin
+                    //ir <= instr;
                     imem_ce <= 1;
                     instr_addr <= pc;
                     pc_next <= pc + 4;
                     state <= DECODE;
                 end
                 DECODE: begin
-                    show_instruction(instr);
                     opcode <= instr[6:0];
                     rd <= instr[11:7];
                     funct3 <= instr[14:12];
@@ -184,7 +236,7 @@ module fsm(
                     rs2 <= instr[24:20];
                     funct7 <= instr[31:25];
 
-                    case (opcode)
+                    case (instr[6:0])
                         7'b0010011:     //I type arithmetic
                             imm <= {{20{instr[31]}}, instr[31:20]};
                         7'b0000011:     //I type load
@@ -194,7 +246,7 @@ module fsm(
                         7'b1100011:     //B type
                             imm <= {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};
                         7'b1101111:     //J type jal
-                            imm <= {{12{instr[31]}}, instr[19:12], instr[20], instr[30:21], 1'b0};
+                            imm <= {{11{instr[31]}}, instr[31], instr[19:12], instr[20], instr[30:21], 1'b0};
                         7'b1100111:     // I type jalr
                             imm <= {{20{instr[31]}}, instr[31:20]};
                         7'b0110111:     //U type lui
@@ -280,38 +332,16 @@ module fsm(
                                     tmp_rd <= 32'b0;
                             endcase
                         end
-                        7'b0000011: begin
+                        7'b0000011: begin    // Load
                             dmem_ce <= 1;
-                            case (funct3)
-                                3'b000: begin
-                                    tmp_mem_addr <= regfile[rs1] + imm;    //lb
-                                    dmem_addr <= (regfile[rs1] + imm) >> 2;
-                                end
-                                3'b001: begin
-                                    tmp_mem_addr <= (regfile[rs1] + imm);    //lh
-                                    dmem_addr <= (regfile[rs1] + imm) >> 2;
-                                end
-                                3'b010: begin
-                                    tmp_mem_addr <= (regfile[rs1] + imm);    //lw
-                                    dmem_addr <= (regfile[rs1] + imm) >> 2;
-                                end
-                                3'b100: begin
-                                    tmp_mem_addr <= (regfile[rs1] + imm);    //lbu
-                                    dmem_addr <= (regfile[rs1] + imm) >> 2;
-                                end
-                                3'b101: begin
-                                    tmp_mem_addr <= (regfile[rs1] + imm);    //lhu
-                                    dmem_addr <= (regfile[rs1] + imm) >> 2;
-                                end
-                                default:
-                                    tmp_rd <= 32'b0;
-                            endcase
+                            dmem_read <= 1;
+                            tmp_mem_addr <= regfile[rs1] + imm;
+                            dmem_addr <= regfile[rs1] + imm;
                         end
                         7'b0100011: begin   //S type
                             dmem_ce <= 1;
-                            dmem_write <= 1;
-                            tmp_mem_addr <= (regfile[rs1] + imm);
-                            dmem_addr <= (regfile[rs1] + imm) >> 2;
+                            tmp_mem_addr <= regfile[rs1] + imm;
+                            dmem_addr <= regfile[rs1] + imm;
                             tmp_memw_data <= regfile[rs2];
                         end
 
@@ -354,12 +384,72 @@ module fsm(
                         default:
                             $display("illegal instruction");
                     endcase
-                    state <= MEMORY;
+                    state <= MEMORY1;
                 end
-                MEMORY: begin
+                MEMORY1: begin
+                    state <= MEMORY2;
                     case (opcode)
                     7'b0000011: begin
-                        dmem_read <= 1;
+                        state <= MEMORY2;
+                    end
+                    7'b0100011: begin
+                        dmem_read <= 0;
+                        dmem_wdata <= 32'b0;
+                        case (funct3)
+                            3'b000: begin      //sb
+                                case (tmp_mem_addr[1:0])
+                                    2'b00: begin
+                                        dmem_write <= 4'b0001;
+                                        dmem_wdata <= {24'b0, tmp_memw_data[7:0]};
+                                    end
+                                    2'b01: begin
+                                        dmem_write <= 4'b0010;
+                                        dmem_wdata <= {16'b0, tmp_memw_data[7:0], 8'b0};
+                                    end
+                                    2'b10: begin
+                                        dmem_write <= 4'b0100;
+                                        dmem_wdata <= {8'b0, tmp_memw_data[7:0], 16'b0};
+                                    end
+                                    2'b11: begin
+                                        dmem_write <= 4'b1000;
+                                        dmem_wdata <= {tmp_memw_data[7:0], 24'b0};
+                                    end
+                                    default: dmem_wdata <= 0;
+                                endcase
+                            end
+                            3'b001:  begin   //sh
+                                case (tmp_mem_addr[1:0])
+                                    2'b00: begin
+                                        dmem_write <= 4'b0011;
+                                        dmem_wdata <= {16'b0, tmp_memw_data[15:0]};
+                                    end
+                                    2'b10: begin
+                                        dmem_write <= 4'b1100;
+                                        dmem_wdata <= {tmp_memw_data[15:0], 16'b0};
+                                    end
+                                    default: dmem_wdata <= 0;
+                                endcase
+                            end
+                            3'b010: begin    //sw
+                                if (tmp_mem_addr[1:0] == 2'b00)begin
+                                    dmem_write <= 4'b1111;
+                                    dmem_wdata <= tmp_memw_data;
+                                end
+                                else
+                                    dmem_wdata <= 32'b0;
+                            end
+                            default:
+                                dmem_wdata <= 0;
+                        endcase
+                    end
+                    default:
+                        $display("undefined");
+                    endcase
+                end
+                MEMORY2: begin
+                    state <= WRITEBACK;
+                    case(opcode)
+                        7'b0000011: begin
                         case (funct3)
                             3'b000: begin     //lb
                                 case (tmp_mem_addr[1:0])
@@ -401,7 +491,7 @@ module fsm(
                                         tmp_rd <= 32'b0;
                                 endcase
                             end
-                            3'b101: begin
+                            3'b101: begin    //lhu
                                 case (tmp_mem_addr[1:0])
                                     2'b00:
                                         tmp_rd <= {16'b0, dmem_rdata[15:0]};
@@ -415,52 +505,20 @@ module fsm(
                                 tmp_rd <= 32'b0;
                         endcase
                     end
-                    7'b0100011: begin
-                        dmem_read <= 0;
-                        dmem_wdata <= 32'b0;
-                        dmem_write <= 1;
-                        dmem_wdata <= 32'b0;
-                        case (funct3)
-                            3'b000: begin      //sb
-                                case (tmp_mem_addr[1:0])
-                                    2'b00: dmem_wdata <= {24'b0, tmp_memw_data[7:0]};
-                                    2'b01: dmem_wdata <= {16'b0, tmp_memw_data[7:0], 8'b0};
-                                    2'b10: dmem_wdata <= {8'b0, tmp_memw_data[7:0], 16'b0};
-                                    2'b11: dmem_wdata <= {tmp_memw_data[7:0], 24'b0};
-                                    default: dmem_wdata <= 0;
-                                endcase
-                            end
-                            3'b001:  begin   //sh
-                                case (tmp_mem_addr[1:0])
-                                    2'b00: dmem_wdata <= {16'b0, tmp_memw_data[15:0]};
-                                    2'b10: dmem_wdata <= {tmp_memw_data[15:0], 16'b0};
-                                    default: dmem_wdata <= 0;
-                                endcase
-                            end
-                            3'b010: begin
-                                if (tmp_mem_addr[1:0] == 2'b00)
-                                    dmem_wdata <= tmp_memw_data;
-                                else
-                                    dmem_wdata <= 32'b0;
-                            end
-                            default:
-                                dmem_wdata <= 0;
-                        endcase
-                    end
-                    default:
-                        $display("undefined");
                     endcase
-                        state <= WRITEBACK;
                 end
                 WRITEBACK: begin
                     dmem_ce <= 0;
-                    dmem_write <= 0;
+                    dmem_write <= 4'b0000;
                     dmem_read <= 0;
+                    dmem_wdata <= 0;
+                    dmem_addr <= 0;
                     pc <= pc_next;
                     if(rd != 0) regfile[rd] <= tmp_rd;
                     state <= FETCH;
+                    show_instruction(instr);
                     /*for (d = 0; d < 32; d = d + 1)
-                        $display("register: %0d, value: %0d", d, regfile[d]);
+                        $display("register: %d, value: %d", d, regfile[d]);
                     */
                 end
             default:
@@ -468,12 +526,12 @@ module fsm(
             endcase
         end
     end
-
-    task show_instruction;
+    
+task show_instruction;
         input [31:0] instr;
         reg [6:0] opcode;
         reg [4:0] rd, rs1, rs2;
-        integer imm;
+        reg [31:0] imm;
         reg [2:0] funct3;
         reg [6:0] funct7;
 
@@ -493,9 +551,9 @@ module fsm(
                 7'b0100011:     //S type
                     imm = {{20{instr[31]}}, instr[31:25], instr[11:7]};
                 7'b1100011:     //B type
-                    imm = {{20{instr[31]}}, instr[7], instr[30:25], instr[11:8], 1'b0};
+                    imm = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};
                 7'b1101111:     //J type jal
-                    imm = {{12{instr[31]}}, instr[19:12], instr[20], instr[30:21], 1'b0};
+                    imm = {{11{instr[31]}}, instr[31], instr[19:12], instr[20], instr[30:21], 1'b0};
                 7'b1100111:     // I type jalr
                     imm = {{20{instr[31]}}, instr[31:20]};
                 7'b0110111:     //U type lui
@@ -512,130 +570,125 @@ module fsm(
                         3'b000: begin
                             case (funct7)
                                 7'b0000000:
-                                    $display("add x%0d, x%0d, x%0d", rd, rs1, rs2);
+                                    $display("add x%d, x%d, x%d", rd, rs1, rs2);
                                 7'b0100000:
-                                    $display("sub x%0d, x%0d, x%0d", rd, rs1, rs2);
+                                    $display("sub x%d, x%d, x%d", rd, rs1, rs2);
                                 default:
-                                    $display("illegal instruction funct3: %3b, funct7: %7b", funct3, funct7);
+                                    $display("illegal instruction");
                             endcase
                         end
                         3'b100:
-                            $display("xor x%0d, x%0d, x%0d", rd, rs1, rs2);
+                            $display("xor x%d, x%d, x%d", rd, rs1, rs2);
                         3'b110:
-                            $display("or x%0d, x%0d, x%0d", rd, rs1, rs2);
+                            $display("or x%d, x%d, x%d", rd, rs1, rs2);
                         3'b111:
-                            $display("and x%0d, x%0d, x%0d", rd, rs1, rs2);
+                            $display("and x%d, x%d, x%d", rd, rs1, rs2);
                         3'b001:
-                            $display("sll x%0d, x%0d, x%0d", rd, rs1, rs2);
+                            $display("sll x%d, x%d, x%d", rd, rs1, rs2);
                         3'b101: begin
                             case (funct7)
                                 7'b0000000:
-                                    $display("srl x%0d, x%0d, x%0d", rd, rs1, rs2);
+                                    $display("srl x%d, x%d, x%d", rd, rs1, rs2);
                                 7'b0100000:
-                                    $display("sra x%0d, x%0d, x%0d", rd, rs1, rs2);
+                                    $display("sra x%d, x%d, x%d", rd, rs1, rs2);
                                 default:
-                                    $display("illegal instruction funct3: %3b, funct7: %7b", funct3, funct7);
+                                    $display("illegal instruction");
                             endcase
                         end
                         3'b010:
-                            $display("slt x%0d, x%0d, x%0d", rd, rs1, rs2);
+                            $display("slt x%d, x%d, x%d", rd, rs1, rs2);
                         3'b011:
-                            $display("sltu x%0d, x%0d, x%0d", rd, rs1, rs2);
+                            $display("sltu x%d, x%d, x%d", rd, rs1, rs2);
                         default:
-                            $display("illegal instruction funct3: %3b, funct7: %7b", funct3, funct7);
+                            $display("illegal instruction");
                     endcase
                 end
                 7'b0010011: begin
                     case (funct3)
                         3'b000:
-                            $display("addi x%0d, x%0d, %0d", rd, rs1, $signed(imm));
+                            $display("addi x%d, x%d, %d", rd, rs1, imm);
                         3'b100:
-                            $display("xori x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("xori x%d, x%d, %d", rd, rs1, imm);
                         3'b110:
-                            $display("ori x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("ori x%d, x%d, %d", rd, rs1, imm);
                         3'b111:
-                            $display("andi x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("andi x%d, x%d, %d", rd, rs1, imm);
                         3'b001: begin
                             case (imm[11:5])
                                 7'b0000000:
-                                    $display("slli x%0d, x%0d, %0d", rd, rs1, imm);
-                                default: $display("xori x%0d, x%0d, %0d", rd, rs1, imm);
+                                    $display("slli x%d, x%d, %d", rd, rs1, imm);
+                                default: $display("xori x%d, x%d, %d", rd, rs1, imm);
                             endcase
                         end
                         3'b101: begin
                             case (imm[11:5])
                                 7'b0000000:
-                                    $display("srli x%0d, x%0d, %0d", rd, rs1, imm);
+                                    $display("srli x%d, x%d, %d", rd, rs1, imm);
                                 7'b0100000:
-                                    $display("srai x%0d, x%0d, %0d", rd, rs1, imm);
-                                default: 
-                                    $display("illegal instruction funct3: %3b, funct7: %7b imm: %0d", funct3, funct7, $signed(imm));
+                                    $display("srai x%d, x%d, %d", rd, rs1, imm);
+                                default: $display("illegal instruction");
                             endcase
                         end
                         3'b010:
-                            $display("slti x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("slti x%d, x%d, %d", rd, rs1, imm);
                         3'b011:
-                            $display("sltiu x%0d, x%0d, %0d", rd, rs1, imm);
-                        default: 
-                            $display("illegal instruction funct3: %3b, funct7: %7b imm: %0d", funct3, funct7, $signed(imm));
+                            $display("sltiu x%d, x%d, %d", rd, rs1, imm);
+                        default: $display("illegal instruction");
                     endcase
                 end
                 7'b0000011: begin
                     case (funct3)
                         3'b000:
-                            $display("lb x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("lb x%d, x%d, %d", rd, rs1, imm);
                         3'b001:
-                            $display("lh x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("lh x%d, x%d, %d", rd, rs1, imm);
                         3'b010:
-                            $display("lw x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("lw x%d, x%d, %d", rd, rs1, imm);
                         3'b100:
-                            $display("lbu x%0d, x%0d, %0d", rd, rs1, imm);
+                            $display("lbu x%d, x%d, %d", rd, rs1, imm);
                         3'b101:
-                            $display("lhu x%0d, x%0d, %0d", rd, rs1, imm);
-                        default:
-                            $display("illegal instruction funct3: %3b, funct7: %7b imm: %0d", funct3, funct7, $signed(imm));
+                            $display("lhu x%d, x%d, %d", rd, rs1, imm);
+                        default: $display("illegal instruction");
                     endcase
                 end
                 7'b0100011: begin
                     case (funct3)
                         3'b000:
-                            $display("sb x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("sb x%d, x%d, %d", rs1, rs2, imm);
                         3'b001:
-                            $display("sh x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("sh x%d, x%d, %d", rs1, rs2, imm);
                         3'b010:
-                            $display("sw x%0d, x%0d, %0d", rs1, rs2, imm);
-                        default: 
-                            $display("illegal instruction funct3: %3b, funct7: %7b imm: %0d", funct3, funct7, $signed(imm));
+                            $display("sw x%d, x%d, %d", rs1, rs2, imm);
+                        default: $display("illegal instruction");
                     endcase
                 end
                 7'b1100011: begin
                     case (funct3)
                         3'b000:
-                            $display("beq x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("beq x%d, x%d, %d", rs1, rs2, imm);
                         3'b001:
-                            $display("bne x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("bne x%d, x%d, %d", rs1, rs2, imm);
                         3'b100:
-                            $display("blt x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("blt x%d, x%d, %d", rs1, rs2, imm);
                         3'b101:
-                            $display("bge x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("bge x%d, x%d, %d", rs1, rs2, imm);
                         3'b110:
-                            $display("bltu x%0d, x%0d, %0d", rs1, rs2, imm);
+                            $display("bltu x%d, x%d, %d", rs1, rs2, imm);
                         3'b111:
-                            $display("bgeu x%0d, x%0d, %0d", rs1, rs2, imm);
-                        default:
-                            $display("illegal instruction funct3: %3b, funct7: %7b imm: %0d", funct3, funct7, $signed(imm));
+                            $display("bgeu x%d, x%d, %d", rs1, rs2, imm);
+                        default:  $display("illegal instruction");
                     endcase
                 end
                 7'b1101111:
-                    $display("jal x%0d, %0d", rd, imm);
+                    $display("jal x%d, %d", rd, imm);
                 7'b1100111:
-                    $display("jalr x%0d, x%0d, %0d", rd, rs1, imm);
+                    $display("jalr x%d, x%d, %d", rd, rs1, imm);
                 7'b0110111:
-                    $display("lui x%0d, %0d", rd, imm);
+                    $display("lui x%d, %d", rd, imm);
                 7'b0010111:
-                    $display("auipc x%0d, %0d", rd, imm);
+                    $display("auipc x%d, %d", rd, imm);
                 default:
-                    $display("illegal instruction funct3: %3b, funct7: %7b imm: %0d", funct3, funct7, $signed(imm));
+                    $display("illegal instruction");
             endcase
         end
     endtask

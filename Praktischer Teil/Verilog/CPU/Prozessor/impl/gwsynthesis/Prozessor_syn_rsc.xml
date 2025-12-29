@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module name="topmodule" Register="2" T_Register="9(2)" T_Lut="7(0)">
- <SubModule name="machine" Register="7" Lut="7" T_Register="7(7)" T_Lut="7(7)"/>
+<Module name="topmodule" Register="4" T_Register="325(4)" T_Alu="160(0)" T_Lut="1763(0)" T_Bsram="10(0)" T_Ssram="8(0)">
+ <SubModule name="dmem" Lut="10" Bsram="8" T_Lut="10(10)" T_Bsram="8(8)"/>
+ <SubModule name="imem" Lut="43" T_Lut="43(43)"/>
+ <SubModule name="machine" Register="321" Alu="160" Lut="1710" Bsram="2" Ssram="8" T_Register="321(321)" T_Alu="160(160)" T_Lut="1710(1710)" T_Bsram="2(2)" T_Ssram="8(8)"/>
 </Module>

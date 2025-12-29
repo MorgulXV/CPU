@@ -61,11 +61,11 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Design File</td>
-<td>/Users/theilmann/Jahresarbeit/Prozessor/impl/gwsynthesis/Prozessor.vg</td>
+<td>/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/impl/gwsynthesis/Prozessor.vg</td>
 </tr>
 <tr>
 <td class="label">Physical Constraints File</td>
-<td>---</td>
+<td>/Users/theilmann/Jahresarbeit/Praktischer Teil/Verilog/CPU/Prozessor/src/Prozessor.cst</td>
 </tr>
 <tr>
 <td class="label">Timing Constraints File</td>
@@ -89,7 +89,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Mon Dec 22 17:03:09 2025
+<td>Mon Dec 29 19:01:51 2025
 </td>
 </tr>
 <tr>
@@ -161,7 +161,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <table class="summary_table">
 <tr>
 <td class="label">Total Power (mW)</td>
-<td>55.189</td>
+<td>118.043</td>
 </tr>
 <tr>
 <td class="label">Quiescent Power (mW)</td>
@@ -169,14 +169,14 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Dynamic Power (mW)</td>
-<td>1.702</td>
+<td>64.556</td>
 </tr>
 </table>
 <h2><a name="Thermal_Info">Thermal Information:</a></h2>
 <table class="summary_table">
 <tr>
 <td class="label">Junction Temperature</td>
-<td>26.865</td>
+<td>28.990</td>
 </tr>
 <tr>
 <td class="label">Theta JA</td>
@@ -184,7 +184,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Max Allowed Ambient Temperature</td>
-<td>83.135</td>
+<td>81.010</td>
 </tr>
 </table>
 <h2><a name="Supply_Summary">Supply Information:</a></h2>
@@ -199,23 +199,23 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td>VCC</td>
 <td>0.900</td>
-<td>0.227</td>
+<td>69.443</td>
 <td>30.002</td>
-<td>27.207</td>
+<td>89.501</td>
 </tr>
 <tr>
 <td>VCCX</td>
 <td>3.300</td>
-<td>0.227</td>
+<td>0.312</td>
 <td>3.000</td>
-<td>10.648</td>
+<td>10.928</td>
 </tr>
 <tr>
 <td>VCCIO33</td>
 <td>3.300</td>
-<td>0.227</td>
+<td>0.312</td>
 <td>1.026</td>
-<td>4.134</td>
+<td>4.414</td>
 </tr>
 <tr>
 <td>VCCLDO</td>
@@ -236,15 +236,21 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td>Logic</td>
-<td>0.004</td>
+<td>1.051</td>
 <td>NA</td>
 <td>12.500</td>
 </tr>
 <tr>
 <td>IO</td>
-<td>6.002
+<td>6.638
 <td>4.305
-<td>22.917
+<td>27.083
+</tr>
+<tr>
+<td>BSRAM</td>
+<td>61.171
+<td>NA</td>
+<td>NA</td>
 </tr>
 </table>
 <h2><a name="By_Hierarchy">Power By Hierarchy:</a></h2>
@@ -256,12 +262,20 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td>topmodule</td>
-<td>0.004</td>
-<td>0.004(0.004)</td>
+<td>62.222</td>
+<td>62.222(62.221)</td>
+<tr>
+<td>topmodule/dmem/</td>
+<td>39.661</td>
+<td>39.661(0.000)</td>
+<tr>
+<td>topmodule/imem/</td>
+<td>0.015</td>
+<td>0.015(0.000)</td>
 <tr>
 <td>topmodule/machine/</td>
-<td>0.004</td>
-<td>0.004(0.000)</td>
+<td>22.545</td>
+<td>22.545(0.000)</td>
 </table>
 <h2><a name="By_Clock_Domain">Power By Clock Domain:</a></h2>
 <table class="detail_table">
@@ -273,7 +287,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td>clk</td>
 <td>100.000</td>
-<td>0.004</td>
+<td>62.222</td>
 </tr>
 </table>
 </div><!-- content -->

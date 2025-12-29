@@ -104,7 +104,7 @@ reg [31:0] rom_mem [4095:0];
 
 
 initial begin
-	$readmemh("rom.mi", rom_mem, 0, 5);
+	$readmemh("rom.mi", rom_mem, 0, 25);
 end
 
 assign dout = ce ? rom_mem[addr >> 2] : 32'b0;
@@ -173,6 +173,32 @@ module fsm(
 	wire [31:0] x3 = regfile[3];
 	wire [31:0] x4 = regfile[4];
 	wire [31:0] x5 = regfile[5];
+	wire [31:0] x6 = regfile[6];
+	wire [31:0] x7 = regfile[7];
+	wire [31:0] x8 = regfile[8];
+	wire [31:0] x9 = regfile[9];
+	wire [31:0] x10 = regfile[10];
+	wire [31:0] x11 = regfile[11];
+	wire [31:0] x12 = regfile[12];
+	wire [31:0] x13 = regfile[13];
+	wire [31:0] x14 = regfile[14];
+	wire [31:0] x15 = regfile[15];
+	wire [31:0] x16 = regfile[16];
+	wire [31:0] x17 = regfile[17];
+	wire [31:0] x18 = regfile[18];
+	wire [31:0] x19 = regfile[19];
+	wire [31:0] x20 = regfile[20];
+	wire [31:0] x21 = regfile[21];
+	wire [31:0] x22 = regfile[22];
+	wire [31:0] x23 = regfile[23];
+	wire [31:0] x24 = regfile[24];
+	wire [31:0] x25 = regfile[25];
+	wire [31:0] x26 = regfile[26];
+	wire [31:0] x27 = regfile[27];
+	wire [31:0] x28 = regfile[28];
+	wire [31:0] x29 = regfile[29];
+	wire [31:0] x30 = regfile[30];
+	wire [31:0] x31 = regfile[31];
 
 //	reg [31:0] ir; // instruction register
 
